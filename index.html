@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Feliz Cumpleaños Tía! 🎂🎉</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ================= BARRA FLOTANTE DE CONTROLES ================= -->
+  <header id="top-bar">
+    <div class="top-bar-container">
+      <div class="brand-logo">🎉 <span id="header-name-display">¡Feliz Cumpleaños Tía!</span></div>
+      <div class="bar-actions">
+        <button id="btn-sound-toggle" class="bar-btn" title="Activar/Desactivar Sonido">
+          🔊 <span class="btn-text">Música: ON</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= SECCIÓN 1: HERO ================= -->
+  <section id="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="word"><span>F</span><span>E</span><span>L</span><span>I</span><span>Z</span></span>
+        <span class="word"><span>C</span><span>U</span><span>M</span><span>P</span><span>L</span><span>E</span><span>A</span><span>Ñ</span><span>O</span><span>S</span></span>
+        <span class="word hero-target-name" id="hero-name">TÍA</span>
+      </h1>
+      <p class="hero-sub">¡Una celebración muy especial hecha con amor! ✨</p>
+      <div class="hero-buttons">
+        <a href="#game" class="hero-btn primary">🎮 Jugar</a>
+        <a href="#final" class="hero-btn secondary">🎂 Ver Pastel & Rompecabezas</a>
+      </div>
+      <div class="scroll-hint">↓↓ Desliza para descubrir la magia ↓↓</div>
+    </div>
+    <canvas id="hero-confetti"></canvas>
+  </section>
+
+  <!-- ================= SECCIÓN 2: MINI JUEGO ================= -->
+  <section id="game">
+    <div class="section-divider"></div>
+    <div class="game-content reveal">
+      <h2 class="section-title">🕯️ La Vela Hambrienta 🕯️</h2>
+      <p class="section-sub">Atrapa las flamas de cumpleaños para hacer crecer la vela. ¡Cuidado con tocar las paredes!</p>
+      <div class="game-frame">
+        <canvas id="game-canvas" width="640" height="480"></canvas>
+        <div id="game-score">🔥 0 / 29</div>
+        <div id="game-high-score">🏆 Récord: 0</div>
+        
+        <!-- Alerta de meta inicial (29 flamas) -->
+        <div id="game-start-toast" class="game-start-toast">
+          🎯 ¡Tu meta es alcanzar las 29 flamas! 🔥
+        </div>
+
+        <!-- Alerta de victoria al llegar a 29 -->
+        <div id="game-win-modal" class="game-win-modal hidden">
+          <div class="game-win-card">
+            <div class="win-icon">🎉</div>
+            <h2>¡FELICES 29! 🎂✨</h2>
+            <p>¡Increíble! Lograste reunir las 29 flamas de cumpleaños.</p>
+            <button id="btn-game-win-continue" class="action-btn primary">🎮 Jugar de nuevo</button>
+          </div>
+        </div>
+      </div>
+      <div class="game-controls-bar">
+        <p class="game-hint">Usa las flechas del teclado (↑ ↓ ← →) o WASD</p>
+        <button id="btn-restart-game" class="game-action-btn">🔄 Reiniciar Juego</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN 3: PASTEL 3D + ROMPECABEZAS ================= -->
+  <section id="final">
+    <div class="section-divider"></div>
+    <div class="final-grid">
+      <!-- LADO PASTEL 3D -->
+      <div class="cake-side reveal">
+        <h2 class="section-title">🎂 ¡Tu Pastel Especial!</h2>
+        <p class="section-sub">Arrastra para girar en 3D. ¡Haz click en el pastel para soplar las velas!</p>
+        
+        <div class="cake-container-wrapper">
+          <div id="cake-3d"></div>
+          <!-- Banner de deseo cuando se soplan las velas -->
+          <div id="wish-banner" class="wish-banner hidden">
+            <span class="wish-icon">🌟</span>
+            <div class="wish-text">
+              <h3>¡Deseo Concedido!</h3>
+              <p>Que este nuevo año esté lleno de salud, sonrisas y momentos inolvidables.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones interactivos del pastel -->
+        <div class="cake-controls">
+          <button id="btn-blow-candles" class="action-btn glow">
+            💨 ¡Soplar Velas!
+          </button>
+          <button id="btn-relight-candles" class="action-btn secondary hidden">
+            🕯️ Encender Velas
+          </button>
+          <button id="btn-cake-palette" class="action-btn secondary" title="Cambiar Sabor / Glaseado">
+            🎨 Cambiar Glaseado
+          </button>
+        </div>
+      </div>
+
+      <!-- LADO ROMPECABEZAS -->
+      <div class="puzzle-side reveal">
+        <h2 class="section-title">🧩 Rompecabezas de la Carta</h2>
+        <p class="section-sub">Encaja las piezas de rompecabezas para revelar la carta sorpresa</p>
+
+        <!-- Barra de herramientas del Rompecabezas -->
+        <div class="puzzle-toolbar">
+          <div class="puzzle-select-wrapper">
+            <label for="puzzle-theme-select">Diseño:</label>
+            <select id="puzzle-theme-select" class="puzzle-select">
+              <option value="carta">📜 Carta Dorada</option>
+              <option value="flores">🌸 Jardín de Flores</option>
+              <option value="fiesta">🎉 Fiesta Cumpleañera</option>
+            </select>
+          </div>
+          <input type="file" id="puzzle-file-input" accept="image/*" style="display:none">
+          
+          <div class="puzzle-buttons">
+            <button id="btn-puzzle-preview" class="puzzle-btn" title="Mantén presionado para ver la imagen completa">
+              👁️ Ver Imagen
+            </button>
+            <button id="btn-puzzle-shuffle" class="puzzle-btn" title="Mezclar las piezas">
+              🔀 Mezclar
+            </button>
+            <button id="btn-puzzle-hint" class="puzzle-btn" title="Mostrar una pista">
+              💡 Pista
+            </button>
+          </div>
+        </div>
+
+        <!-- Barra de Progreso -->
+        <div class="puzzle-progress-container">
+          <div class="puzzle-progress-bar" id="puzzle-progress-bar"></div>
+          <span class="puzzle-progress-text" id="puzzle-progress-text">Progreso: 0 / 12 piezas</span>
+        </div>
+
+        <!-- Canvas del Rompecabezas -->
+        <div class="puzzle-canvas-wrapper">
+          <canvas id="puzzle-canvas" width="480" height="320"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MODAL: CARTA ENFOCADA ================= -->
+  <div id="letter-overlay" class="hidden">
+    <div class="letter-sheet">
+      <button id="close-letter" title="Cerrar">×</button>
+      <div class="letter-header">
+        <span class="letter-stamp">💌 CARTA ESPECIAL</span>
+        <h2 class="letter-title">¡Feliz Cumpleaños, <span class="letter-recipient-name">Tía</span>!</h2>
+      </div>
+      <div class="letter-body">
+        <p class="letter-text" id="editable-letter-text">
+          Querida <span class="letter-recipient-name">Tía</span>,<br><br>
+          En este día tan especial quiro recordarte lo increíble e importante que eres para mi apesar de no pasar mucho 
+          tiempo juntos.<br><br>
+          Gracias por regalarle al mundo tu sonrisa, tu cariño incondicional y por demostrar tus destresas como persona en esta vida
+          ,una mujer echa y derecha,que aun que ultimamente sea dificil no se detiene.<br><br>
+          ¡le deseo que este nuevo año de vida venga repleto de salud, felicidad, amor y muchos recuerdos nuevos!<br><br>
+          Con todo nuestro amor,<br>
+          <strong>yeyo</strong>
+        </p>
+      </div>
+      <div class="letter-footer-actions">
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: PERSONALIZAR NOMBRE ================= -->
+  <div id="name-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <button id="close-name-modal" class="close-modal-btn">×</button>
+      <h3>✏️ Personalizar la Dedicatoria</h3>
+      <p>Escribe el nombre de tu tía (o a quién va dedicado):</p>
+      <input type="text" id="input-recipient-name" placeholder="Ej: Tía María" maxlength="25">
+      <div class="modal-actions">
+        <button id="btn-save-name" class="action-btn primary">Guardar Nombre</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
+
